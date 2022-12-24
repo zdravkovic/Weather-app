@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+    integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
+    crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+    integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
+    crossorigin=""></script>
+    <title>Weather-app</title>
+  </head>
+  <body class="font-display max-w-[125rem] 2xl:shadow-2xl mx-auto bg-blue-background scrollbar-thin scrollbar-thumb-rounded-full scrollbar-thumb-[#8d94a8]">
+    
+    <div class="first-screen mx-auto max-w-[125rem] fixed h-full left-50% flex flex-col justify-center items-center bg-main-image-gradient bg-cover bg-center z-[100]">
+
+      <form class="form-first w-full md:w-3/4 lg:w-1/2 h-auto mt-8 mb-8 md:-mt-32 mx-auto text-center relative ">
+        <div class="first-div mx-auto px-8 py-3 xl:py-4 rounded-full w-[90%] bg-[#DDE3F1] text-left flex items-center">
+          <input class="form-input-first bg-transparent w-full text-darker-blue font-bold placeholder:font-normal text-base lg:text-lg border-none focus:outline-none"
+              type="text"
+              placeholder="Search location...">
+          <button type="submit" class="form-btn cursor-pointer ">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-gray-text hover:text-light-gray-box transition-colors duration-300">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+            </svg>
+          </button>
+        </div>
+      </form>
+      <h2 class="first-screen-error text-xl font-normal text-[#ff4a50] text-center w-6/7 sm:w-2/3 hidden">Couldn't find this location. Please search for some other location.</h2>
+      <div class="firstScreen-cities mt-10 md:mt-20 gap-5 w-[90%] h-full sm:h-[40%] xl:h-1/4 md:w-5/6 grid grid-cols-1 grid-rows-4 sm:grid-cols-2 sm:grid-rows-2 xl:grid-cols-4 xl:grid-rows-1">
+        <div class="fs-belgrade w-full bg-firstScreen-belgrade-gradient hover:bg-firstScreen-belgrade-gradient-hover hover:sm:scale-105 transition-all bg-center bg-cover rounded-lg p-4 flex flex-col justify-center sm:justify-start cursor-pointer">
+          <p class="text-xl sm:text-3xl text-light font-semibold">Belgrade</p>
+          <p class="fs-belgrade-description text-lg sm:text-2xl text-light font-light"></p>
+          <p class="fs-belgrade-temp text-lg sm:text-2xl text-light font-light"></p>
+        </div>
+        <div class="fs-berlin w-full bg-firstScreen-berlin-gradient hover:bg-firstScreen-berlin-gradient-hover hover:sm:scale-105 transition-all bg-center bg-cover rounded-lg p-4 flex flex-col justify-center sm:justify-start cursor-pointer">
+          <p class="text-xl sm:text-3xl text-light font-semibold">Berlin</p>
+          <p class="fs-berlin-description text-lg sm:text-2xl text-light font-light"></p>
+          <p class="fs-berlin-temp text-lg sm:text-2xl text-light font-light"></p>
+        </div>
+        <div class="fs-paris w-full bg-firstScreen-paris-gradient hover:bg-firstScreen-paris-gradient-hover hover:sm:scale-105 transition-all bg-center bg-cover rounded-lg p-4 flex flex-col justify-center sm:justify-start cursor-pointer">
+          <p class="text-xl sm:text-3xl text-light font-semibold">Paris</p>
+          <p class="fs-paris-description text-lg sm:text-2xl text-light font-light"></p>
+          <p class="fs-paris-temp text-lg sm:text-2xl text-light font-light"></p>
+        </div>
+        <div class="fs-madrid w-full bg-firstScreen-madrid-gradient hover:bg-firstScreen-madrid-gradient-hover hover:sm:scale-105 transition-all bg-center bg-cover rounded-lg p-4 flex flex-col justify-center sm:justify-start cursor-pointer">
+          <p class="text-xl sm:text-3xl text-light font-semibold">Madrid</p>
+          <p class="fs-madrid-description text-lg sm:text-2xl text-light font-light"></p>
+          <p class="fs-madrid-temp text-lg sm:text-2xl text-light font-light"></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="min-h-screen mx-auto flex flex-col lg:flex-row">
+      <div class="lft h-full w-full scrollbar-thin scrollbar-thumb-rounded-full scrollbar-thumb-gray-blue-text lg:h-screen overflow-y-scroll bg-gradient-to-b from-darker-blue to-dark-blue lg:w-2/5 xl:w-1/3 px-2 xl:px-5 2xl:px-8 z-50">
+        <form class="form mt-8 lg:mt-12 w-full md:w-[70%] lg:w-full mx-auto text-center relative">
+          <div class="mx-auto px-8 py-3 xl:py-4 rounded-full w-[90%] bg-dark-light-blue text-left flex items-center">
+            <input class="form-input bg-transparent w-full text-white text-base lg:text-lg border-none focus:outline-none"
+                type="text"
+                placeholder="Search location...">
+            <button type="submit" class="form-btn cursor-pointer ">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-gray-text hover:text-light-gray-box transition-colors duration-300">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+              </svg>
+            </button>
+          </div>
+        </form>
+        <div class="error-message h-[75vh] -mt-20 lg:-mt-16 lg:h-4/5 flex flex-col justify-center items-center md:w-[80%] mx-auto">
+          <h2 class="error-message__city text-xl lg:text-2xl font-normal text-gray-text text-center"></h2>
+          <h2 class="text-xl lg:text-2xl font-normal text-gray-text text-center">Please search for some other location.</h2>
+        </div>
+        <div class="left-info-wrapper">
+          <div class="city-date mt-8 md:mt-12 lg:mt-16">
+            <h2 class="city text-2xl sm:text-4xl xl:text-[2.5rem] font-normal text-white text-center">Belgrade</h2>
+            <p class="date text-base sm:text-xl xl:text-[1.5rem] font-normal text-gray-text text-center mt-1">17. October, 2022</p>
+          </div>
+  
+          <div class="flex justify-between sm:justify-around lg:justify-between items-end mt-8 2xl:mt-14 px-8">
+            <div class="main-weather flex flex-col">
+              <img src="./icons/weather-icons/01d.png" alt="" class="main-temp-icon w-14 md:w-[5.5rem] mb-2 h-auto">
+              <h2 class="main-temp text-4xl md:text-5xl 2xl:text-6xl text-white font-normal"><span>20</span>&deg;C</h2>
+            </div>
+            <p class="main-description text-xl xs:text-2xl lg:text-3xl text-white font-normal">Clear</p>
+          </div>
+  
+          <div class="w-[90%] md:w-[70%] lg:w-[90%] h-[1px] bg-gray-blue-text mx-auto my-4 md:my-8"></div>
+  
+          <div class="five-day w-[90%] md:w-[70%] lg:w-[90%] h-auto bg-forecast-blue mx-auto px-4 py-3 lg:p-4 rounded-lg my-8 md:my-10">
+            
+            <div class="five-day__title flex justify-between pb-3 border-b border-gray-blue-text">
+              <p class="first text-gray-blue-text text-xs sm:text-base font-light uppercase">5-day forecast</p>
+              <p class="first text-gray-blue-text text-xs sm:text-base font-light uppercase">min/max</p>
+            </div>
+            
+            <div class="five-day__title flex justify-between py-4 border-b border-gray-blue-text">
+              <p class="first text-white text-lg sm:text-xl font-light">Today</p>
+              <div class="flex justify-between items-center w-2/3">
+                <div class="flex items-center space-x-2">
+                  <img src="./icons/weather-icons/01d.png" alt="" class="forecast-icon w-8">
+                  <p class="forecast-description text-gray-blue-text text-base xs:text-lg sm:text-xl font-light capitalize">clear</p>
+                </div>
+                <p class="forecast-temp text-white text-xl sm:text-2xl font-light">9&deg;/22&deg;</p>
+              </div>
+            </div>
+            <div class="five-day__title flex justify-between py-4 border-b border-gray-blue-text">
+              <p class="forecast-day text-white text-lg sm:text-xl font-light">Tue</p>
+              <div class="flex justify-between items-center w-2/3">
+                <div class="flex items-center space-x-2">
+                  <img src="./icons/weather-icons/10d.png" alt="" class="forecast-icon w-8">
+                  <p class="forecast-description text-gray-blue-text text-base xs:text-lg sm:text-xl font-light capitalize">rainy</p>
+                </div>
+                <p class="forecast-temp text-white text-xl sm:text-2xl font-light">8&deg;/20&deg;</p>
+              </div>
+            </div>
+            <div class="five-day__title flex justify-between py-4 border-b border-gray-blue-text">
+              <p class="forecast-day text-white text-lg sm:text-xl font-light">Wed</p>
+              <div class="flex justify-between items-center w-2/3">
+                <div class="flex items-center space-x-2">
+                  <img src="./icons/weather-icons/04d.png" alt="" class="forecast-icon w-8">
+                  <p class="forecast-description text-gray-blue-text text-base xs:text-lg sm:text-xl font-light capitalize">cloudy</p>
+                </div>
+                <p class="forecast-temp text-white text-xl sm:text-2xl font-light">11&deg;/22&deg;</p>
+              </div>
+            </div>
+            <div class="five-day__title flex justify-between py-4 border-b border-gray-blue-text">
+              <p class="forecast-day text-white text-lg sm:text-xl font-light">Thu</p>
+              <div class="flex justify-between items-center w-2/3">
+                <div class="flex items-center space-x-2">
+                  <img src="./icons/weather-icons/11d.png" alt="" class="forecast-icon w-8">
+                  <p class="forecast-description text-gray-blue-text text-base xs:text-lg sm:text-xl font-light capitalize">storm</p>
+                </div>
+                <p class="forecast-temp text-white text-xl sm:text-2xl font-light">5&deg;/18&deg;</p>
+              </div>
+            </div>
+            <div class="five-day__title flex justify-between pt-4 ">
+              <p class="forecast-day text-white text-lg sm:text-xl font-light">Fri</p>
+              <div class="flex justify-between items-center w-2/3">
+                <div class="flex items-center space-x-2">
+                  <img src="./icons/weather-icons/13d.png" alt="" class="forecast-icon w-8">
+                  <p class="forecast-description text-gray-blue-text text-base xs:text-lg sm:text-xl font-light capitalize">snow</p>
+                </div>
+                <p class="forecast-temp text-white text-xl sm:text-2xl font-light">7&deg;/22&deg;</p>
+              </div>
+            </div>
+        </div>
+        </div>
+      </div>
+      
+      
+      <div class="rght h-full lg:h-screen overflow-y-auto w-full scrollbar-thin scrollbar-thumb-rounded-full scrollbar-thumb-[#8d94a8] scrollbar-track-light-gray-box bg-light px-6 py-6 md:py-12 sm:px-10 xl:px-16 lg:w-3/5 xl:w-2/3 relative">
+
+        <div class="before-search w-full h-full flex flex-col justify-center items-center">
+          <img src="./img/search-image.png" alt="Image of magnifying glass" class="w-1/3 lg:w-1/3 h-auto opacity-40">
+          <h2 class="text-xl lg:text-2xl text-center text-gray-text mt-4">Search location to get more information</h2>
+        </div>
+
+        <div class="right-info-wrapper">
+          <h2 class="text-dark-blue-text text-base md:text-lg 2xl:text-xl font-bold pb-4 md:pb-6 xl:pb-4">Today overview</h2>
+          
+          <div class="grid grid-cols-2 md:grid-cols-3 w-full justify-between flex-row gap-4 md:gap-8">
+            <div class="bg-light-gray-box px-4 py-2 md:px-8 md:py-4 w-full h-auto aspect-square rounded-lg relative">
+              <div class="flex items-center pb-2">
+                <img src="./icons/UI-icons/icon-wind.svg" alt="wind icon" class="w-4 h-4">
+                <p class="text-gray-text text-xs xl:text-sm ml-1 font-medium uppercase">wind</p>
+              </div>
+              <div class="relative flex justify-center items-center">
+                <img src="./icons/UI-icons/wind-direction-circle.png" alt="wind-direction">
+                <img src="./icons/UI-icons/wind-direction-arrow.png" alt="wind-direction-arrow" class="wind-arrow h-full absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rotate-[80deg] z-0">
+                <div class="w-[60%] h-[60%] rounded-full absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 shadow-wind-shadow bg-light-gray-box flex flex-col justify-center items-center">
+                  <h3 class="wind-speed text-dark-blue-text text-2xl xl:text-3xl font-semibold">4</h3>
+                  <p class="text-xs xs:text-base sm:text-lg md:text-sm xl:text-2xl -mt-2">km/h</p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="bg-light-gray-box px-4 py-2 md:px-8 md:py-4 w-full h-auto aspect-square rounded-lg">
+              <div class="flex items-center pb-2">
+                <img src="./icons/UI-icons/icon-pressure.svg" alt="pressure icon" class="w-4 h-4">
+                <p class="text-gray-text text-xs xl:text-sm ml-1 font-medium uppercase">pressure</p>
+              </div>
+              <div class="relative flex justify-center items-center">
+                <img src="./icons/UI-icons/pressure-bar.png" alt="pressure bar" class=''>
+                <img src="./icons/UI-icons/pressure-arrow.png" class="pressure-arrow h-full absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rotate-0 z-0">
+                <div class="w-[50%] h-[50%] rounded-full absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 shadow-wind-shadow bg-light-gray-box flex flex-col justify-center items-center">
+                  <h3 class="pressure-text text-dark-blue-text text-base xs:text-2xl lg:text-xl xl:text-2xl 2xl:text-3xl font-semibold">1015</h3>
+                  <p class="text-xs xs:text-base sm:text-lg md:text-sm xl:text-xl -mt-2">hPa</p>
+                </div>
+              </div>
+            </div>
+  
+            <div class="bg-light-gray-box px-4 py-2 md:px-8 md:py-4 w-full h-20 sm:h-24 md:h-auto aspect-square rounded-lg flex flex-col">
+              <div class="flex items-center">
+                <img src="./icons/UI-icons/icon-uv-index.svg" alt="uv-index icon" class="w-4 h-4">
+                <p class="text-gray-text text-xs xl:text-sm ml-1 font-medium uppercase">uv-index</p>
+              </div>
+              <div class="uv-index flex flex-col justify-around h-full md:h-1/2 my-auto">
+                <div class="flex items-baseline">
+                  <h2 class="uv-text text-dark-blue-text text-2xl xl:text-3xl font-semibold">0</h2>
+                  <p class="uv-grade ml-2 text-base sm:text-lg xl:text-2xl">Low</p>
+                </div>
+                <div class="w-full h-1 sm:h-2 rounded-lg bg-uv-gradient relative">
+                  <div class="uv-dot w-4 h-4 sm:h-5 sm:w-5 rounded-full border-2 border-gray-text bg-light absolute top-1/2 -translate-y-1/2"></div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="bg-light-gray-box px-4 py-2 md:px-8 md:py-4 w-full h-20 sm:h-24 md:h-20 xl:h-24 aspect-square rounded-lg flex flex-col">
+              
+              <div class="flex items-center">
+                <img src="./icons/UI-icons/icon-feels-like.svg" alt="feels-like icon" class="w-4 h-4">
+                <p class=" text-gray-text text-xs xl:text-sm ml-1 font-medium uppercase">feels like</p>
+              </div>
+              <h3 class="weather-feels-like text-dark-blue-text text-2xl xl:text-3xl font-semibold my-auto">12&deg;C</h3>
+            </div>
+            
+            <div class="bg-light-gray-box px-4 py-2 md:px-8 md:py-4 w-full h-20 sm:h-24 md:h-20 xl:h-24 aspect-square rounded-lg flex flex-col">
+              <div class="flex items-center">
+                <img src="./icons/UI-icons/icon-humidity.svg" alt="humidity icon" class="w-4 h-4">
+                <p class="text-gray-text text-xs xl:text-sm ml-1 font-medium uppercase">humidity</p>
+              </div>
+              <h3 class="weather-humidity text-dark-blue-text text-2xl xl:text-3xl  font-semibold my-auto">65%</h3>
+            </div>
+  
+            <div class="bg-light-gray-box px-4 py-2 md:px-8 md:py-4 w-full h-20 sm:h-24 md:h-20 xl:h-24 aspect-square rounded-lg flex flex-col">
+              <div class="flex items-center">
+                <img src="./icons/UI-icons/icon-sunrise.svg" alt="sunrise icon" class="w-4 h-4">
+                <p class="text-gray-text text-xs xl:text-sm ml-1 font-medium uppercase">sunset</p>
+              </div>
+              <h3 class="weather-sunset text-dark-blue-text text-2xl xl:text-3xl  font-semibold my-auto">06:54</h3>
+            </div>
+  
+          </div>
+  
+          
+          <div class="flex flex-col xl:flex-row h-[32rem] sm:h-[36rem] xl:h-72 mt-4 md:mt-8 space-y-4 md:space-y-8 space-x-0 xl:space-y-0 xl:space-x-8">
+            <div class="w-full h-auto xl:h-full rounded-lg px-4 pt-2 pb-4 md:px-8 md:pt-4 md:pb-4 bg-light-gray-box">
+              <p class="text-gray-text text-xs xl:text-sm font-medium uppercase">air quality index</p>
+              <div class="flex flex-col sm:flex-row xl:flex-col justify-between md:justify-around h-full my-auto py-4">
+                <div class="w-full sm:w-1/2 xl:w-full pr-4">
+                  <div class="flex items-center mb-2">
+                    <div>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="none" viewBox="0 0 48 48" class="w-8 xl:w-10">
+                        <path class="air-icon" stroke="#17B784" stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M6 16h14a6 6 0 1 0-6-6M8 32h22a6 6 0 1 1-6 6M4 24h34a6 6 0 1 0-6-6"/>
+                      </svg>
+                    </div>
+                    <h3 class="air-condition text-xl xl:text-2xl ml-2 font-semibold text-air-good-text">Good</h3>
+                  </div>
+                  <p class="air-description text-base text-dark-blue-text w-full lg:w-full">Perfect day for a walk</p>
+                </div>
+                <div class="h-full xl:h-1/3 w-full sm:w-1/2 xl:w-full mt-4 sm:mt-0">
+                  <div class="aqi-bg w-full h-full bg-air-good-bg flex justify-evenly items-center rounded-lg p-4">
+                    <p class="aqi-text text-sm xs:text-base sm:text-xl lg-text-2xl font-semibold text-air-good-text">US AQI</p>
+                    <div class="aqi-line h-full w-0.5 bg-air-good-text"></div>
+                    <p class="aqi-number text-2xl lg:text-3xl font-bold text-air-good-text">48</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="w-full h-full rounded-lg py-2 md:py-4 bg-light-gray-box">
+              <div class="flex items-center px-4 md:px-8 pb-2">
+                <img src="./icons/UI-icons/icon-precipitation.svg" alt="precipitation icon" class="w-4 h-4">
+                <p class="text-gray-text text-xs xl:text-sm ml-1 font-medium uppercase">precipitation</p>
+              </div>
+              <div class="precipitation-map w-[97%] md:w-[96%] lg:w-[95%] h-[90%] rounded-lg overflow-hidden bg-gray-text mx-auto">
+                <div id="map" class="z-[90]">
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>

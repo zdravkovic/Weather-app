@@ -1,0 +1,38 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+
+.wind-arrow {
+   transform: translate(-50%, -50%) rotate(0deg);
+}
+.uv-dot {
+   left: 10%; 
+}
+.pressure-arrow {
+   transform: translate(-50%, -50%) rotate(0deg);
+}
+#map {
+   height: 100%;
+}
+
+.first-screen {
+   width: 100%;
+   transition: width 1s cubic-bezier(.32,0,.24,.99);
+}
+
+.first-screen-error {
+   animation: error-animation .3s;
+}
+
+@keyframes opacity-animation {
+   0% { opacity: 100%; }
+   50% { opacity: 50%; }
+   100% { opacity: 0%; }
+}
+
+@keyframes error-animation {
+   25% { transform: translateX(4px) }
+   50% { transform: translateX(-4px) }
+   75% { transform: translateX(4px) }
+}
