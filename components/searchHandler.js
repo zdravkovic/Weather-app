@@ -8,7 +8,7 @@ const api = {
 const weatherResults = async (query) => {
    try {
       // call get method on GEO api
-      const geoSearch = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${query}&limit=1&appid=${api.key}`);
+      const geoSearch = await fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${query}&limit=1&appid=${api.key}`);
       const geoSearchData = await geoSearch.json();
 
       const geoData = {
