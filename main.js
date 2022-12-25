@@ -15,8 +15,7 @@ const init = () => {
 
 const firstInit = () => {
    variables.inputFieldFirst.value = '';
-   variables.firstScreenError.classList.add('hidden');
-
+   
 }
 
 const firstScreen = async () => {
@@ -73,6 +72,10 @@ const displayWeather = async (location, city) => {
    
       if (variables.firstScreen.style.width != '0') {
          variables.firstScreen.style.width = '0';
+         variables.inputFieldFirst.classList.remove('error-placeholder');
+         variables.wholeLeftSide.classList.remove('hidden');
+         variables.wholeRightSide.classList.remove('hidden');
+
          setTimeout(() => {
             variables.firstScreen.style.animation = 'opacity-animation .5s forwards';
             setTimeout(() => {
@@ -90,14 +93,25 @@ const displayWeather = async (location, city) => {
          variables.errorMessage.classList.remove('hidden');
          variables.beforeSearch.classList.remove('hidden');
       } else {
-         variables.firstScreenError.classList.remove('hidden');
+         variables.inputFieldFirst.placeholder = `Couldn\'t find this location...`;
+         variables.inputFormFirst.classList.add('form-first-error');
+         variables.inputFieldWrapper.classList.add('first-div-error');
+         variables.inputFieldFirst.classList.add('error-placeholder');
+         variables.firstSearchIcon.classList.add('error-icon');
       }
    }
 }
 
 
 
-[variables.inputFormFirst, variables.inputForm].forEach(el => {
+[variables.inputFormFirst, variables.inputForm].forEach((el) => {
+   el[0].addEventListener('keypress', input => {
+      variables.inputFormFirst.classList.remove('form-first-error');
+      variables.inputFieldFirst.classList.remove('error-placeholder');
+      variables.inputFieldWrapper.classList.remove('first-div-error');
+      variables.firstSearchIcon.classList.remove('error-icon');
+      variables.inputFieldFirst.placeholder = `Search location...`;
+   })
    el.addEventListener('submit', form => {
       form.preventDefault();
       let inputQuery;

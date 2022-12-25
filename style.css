@@ -21,12 +21,33 @@
    transition: width 1s cubic-bezier(.32,0,.24,.99);
 }
 
-.first-screen-error {
+.error-placeholder::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+   color: red;
+   opacity: 1; /* Firefox */
+ }
+ 
+ .error-placeholder:-ms-input-placeholder { /* Internet Explorer 10-11 */
+   color: red;
+ }
+ 
+ .error-placeholder::-ms-input-placeholder { /* Microsoft Edge */
+   color: red;
+ }
+
+ .first-div-error {
+   border: 1px solid red;
+ }
+
+ .form-first-error {
    animation: error-animation .3s;
-}
+ }
 
 .error-message {
    animation: error-animation .3s;
+}
+
+.error-icon {
+   color: red;
 }
 
 @keyframes opacity-animation {

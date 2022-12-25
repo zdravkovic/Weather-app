@@ -1,7 +1,11 @@
 
 export const variables = {
+   wholeLeftSide: document.querySelector('.lft'),
+   wholeRightSide: document.querySelector('.rght'),
    inputFormFirst: document.querySelector('.form-first'),
    inputFieldFirst: document.querySelector('.form-input-first'),
+   inputFieldWrapper: document.querySelector('.first-div'),
+   firstSearchIcon: document.querySelector('.first-search-icon'),
    inputForm: document.querySelector('.form'),
    inputField: document.querySelector('.form-input'),
    firstScreen: document.querySelector('.first-screen'),
