@@ -120,14 +120,19 @@ const displayWeather = async (location, city) => {
 
          inputQuery = variables.inputFieldFirst.value;
 
-         firstInit();
-         displayWeather(inputQuery, inputQuery);
+         if(inputQuery.trim().length > 0) {
+            inputQuery = inputQuery.trim();
+            firstInit();
+            displayWeather(inputQuery, inputQuery);
+         }
       } else {
-
          inputQuery = variables.inputField.value;
+         
+         if (inputQuery.trim().length > 0) {
+            inputQuery = inputQuery.trim();
+            displayWeather(inputQuery, inputQuery);
+         }
       
-      
-         displayWeather(inputQuery, inputQuery);
       }
    
    
