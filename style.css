@@ -21,6 +21,10 @@
    transition: width 1s cubic-bezier(.32,0,.24,.99);
 }
 
+.first-screen-error {
+   animation: error-animation .3s;
+}
+
 .error-message {
    animation: error-animation .3s;
 }
