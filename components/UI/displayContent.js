@@ -1,6 +1,5 @@
 import { variables } from '../variables'
 import { unixTimeFormat } from '../dateAndNameFormat';
-import precipitationSearch from '../searchHandlers/precipitationSearch';
 import airPolutionSearch from '../searchHandlers/airPolutionSearch';
 import uvSearch from '../searchHandlers/uvIndexSearch';
 
