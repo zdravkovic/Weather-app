@@ -21,10 +21,6 @@
    transition: width 1s cubic-bezier(.32,0,.24,.99);
 }
 
-.first-screen-error {
-   animation: error-animation .3s;
-}
-
 @keyframes opacity-animation {
    0% { opacity: 100%; }
    50% { opacity: 50%; }
