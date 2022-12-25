@@ -62,7 +62,8 @@ const displayWeather = async (location, city) => {
 
    if (typeof res !== 'undefined') {
       init();
-
+      variables.wholeLeftSide.classList.remove('hidden');
+      variables.wholeRightSide.classList.remove('hidden');
       displayContent(res);
       displayMap(res);
       
@@ -73,8 +74,7 @@ const displayWeather = async (location, city) => {
       if (variables.firstScreen.style.width != '0') {
          variables.firstScreen.style.width = '0';
          variables.inputFieldFirst.classList.remove('error-placeholder');
-         variables.wholeLeftSide.classList.remove('hidden');
-         variables.wholeRightSide.classList.remove('hidden');
+         
 
          setTimeout(() => {
             variables.firstScreen.style.animation = 'opacity-animation .5s forwards';
