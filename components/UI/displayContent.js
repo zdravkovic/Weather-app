@@ -44,7 +44,6 @@ const displayContent = async (res) => {
       const airPolution = await airPolutionSearch(res.geoData);
       airPolution && displayAirColors(airPolution);
 
-      precipitationSearch(res);
 }
 
 export default displayContent;
