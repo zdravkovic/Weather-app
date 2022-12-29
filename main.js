@@ -4,6 +4,7 @@ import { dateFormat, cityNameFormat } from './components/dateAndNameFormat';
 import { variables } from './components/variables';
 
 const init = () => {
+   // reset UI
    variables.inputField.value = '';
    variables.leftSide.classList.remove('hidden');
    variables.rightSide.classList.remove('hidden');
@@ -13,17 +14,20 @@ const init = () => {
    variables.currentDate.textContent = '';
 }
 
+// Clear input field on 'first-search-screen'
 const firstInit = () => {
    variables.inputFieldFirst.value = '';
-   
 }
 
+// Handle 'first-search-screen' citites fields
 const firstScreen = async () => {
+   // Call async functions and store their values to a variables
    const searchBelgrade = await searchResults('belgrade');
    const searchBerlin = await searchResults('berlin');
    const searchParis = await searchResults('paris');
    const searchMadrid = await searchResults('madrid');
 
+   // Change temperature and weather description for each city
    variables.fsBelgradeDescription.textContent = searchBelgrade.weather.weather[0].main;
    variables.fsBelgradeTemp.textContent = `${Math.ceil(searchBelgrade.weather.main.temp)}\xB0C`;
    variables.fsBerlinDescription.textContent = searchBerlin.weather.weather[0].main;
@@ -33,20 +37,29 @@ const firstScreen = async () => {
    variables.fsMadridDescription.textContent = searchMadrid.weather.weather[0].main;
    variables.fsMadridTemp.textContent = `${Math.ceil(searchMadrid.weather.main.temp)}\xB0C`;   
 
+   
    let clickedCity;
+   // listen to a click event on every photo
    variables.fsBelgrade.addEventListener('click', () => {
+      // save clicked target to
       clickedCity = 'belgrade';
       displayWeather(clickedCity, clickedCity);
    });
+   // listen to a click event on every photo
    variables.fsBerlin.addEventListener('click', () => {
+      // save clicked target to
       clickedCity = 'berlin';
       displayWeather(clickedCity, clickedCity);
    });
+   // listen to a click event on every photo
    variables.fsParis.addEventListener('click', () => {
+      // save clicked target to
       clickedCity = 'paris';
       displayWeather(clickedCity, clickedCity);
    });
+   // listen to a click event on every photo
    variables.fsMadrid.addEventListener('click', () => {
+      // save clicked target to
       clickedCity = 'madrid';
       displayWeather(clickedCity, clickedCity);
    });
@@ -56,26 +69,34 @@ const firstScreen = async () => {
 firstScreen();
 
 
+// display weather based on searched location
 const displayWeather = async (location, city) => {
-
+   //save search results in a variables
    const res = await searchResults(location);
-
+   
+   // if results exist
    if (typeof res !== 'undefined') {
+      // reset all parameters
       init();
+      // display hidden UI
       variables.wholeLeftSide.classList.remove('hidden');
       variables.wholeRightSide.classList.remove('hidden');
+      // display content based on search results
       displayContent(res);
+      // display map based on a search results
       displayMap(res);
       
-
+      // display city name
       variables.cityName.textContent = cityNameFormat(city);
+      // display date
       dateFormat();
    
+      // check if it's first search
       if (variables.firstScreen.style.width != '0') {
+         // hide 'first-search-sreen'
          variables.firstScreen.style.width = '0';
          variables.inputFieldFirst.classList.remove('error-placeholder');
-         
-
+         // animate fade-out on background and hide it
          setTimeout(() => {
             variables.firstScreen.style.animation = 'opacity-animation .5s forwards';
             setTimeout(() => {
@@ -84,15 +105,19 @@ const displayWeather = async (location, city) => {
          }, 300)
       }
    } else {
-
+      // check if 'first-search-screen' UI is removed
       if(variables.firstScreen.style.display == 'none') {
+         // Clear input field
          variables.inputField.value = '';
+         // Remove left and right side of UI
          variables.leftSide.classList.add('hidden');
          variables.rightSide.classList.add('hidden');
+         // Display error message
          variables.errorMessageCity.innerHTML = `Couldn't find <span class="font-bold">${city.length == 0 ? 'anything' : `'${city}'`}</span>`
          variables.errorMessage.classList.remove('hidden');
          variables.beforeSearch.classList.remove('hidden');
       } else {
+         // Add 'first-search-screen' error message and animations
          variables.inputFieldFirst.placeholder = `Couldn\'t find this location...`;
          variables.inputFormFirst.classList.add('form-first-error');
          variables.inputFieldWrapper.classList.add('first-div-error');
@@ -103,39 +128,46 @@ const displayWeather = async (location, city) => {
 }
 
 
-
+// Add event listener to forms
 [variables.inputFormFirst, variables.inputForm].forEach((el) => {
+   // Remove error message on keypress
    el[0].addEventListener('keypress', input => {
       variables.inputFormFirst.classList.remove('form-first-error');
       variables.inputFieldFirst.classList.remove('error-placeholder');
       variables.inputFieldWrapper.classList.remove('first-div-error');
       variables.firstSearchIcon.classList.remove('error-icon');
       variables.inputFieldFirst.placeholder = `Search location...`;
-   })
+   });
+
+   // Listen to submit action on both forms
    el.addEventListener('submit', form => {
       form.preventDefault();
       let inputQuery;
-
+      // check if it's first search
       if (variables.firstScreen.style.display != 'none') {
 
+         // save user input to a variable
          inputQuery = variables.inputFieldFirst.value;
-
-         if(inputQuery.trim().length > 0) {
+         // check if input is correct
+         if(inputQuery.trim().length > 0 && isNaN(inputQuery)) {
+            // remove empty space on both ends of input
             inputQuery = inputQuery.trim();
+            // clear input field 
             firstInit();
+            // display weather based od input location
             displayWeather(inputQuery, inputQuery);
          }
       } else {
+         // save user input to a variable
          inputQuery = variables.inputField.value;
-         
-         if (inputQuery.trim().length > 0) {
+         // check if input is correct
+         if (inputQuery.trim().length > 0 && isNaN(inputQuery)) {
+            // remove empty space on both ends of input
             inputQuery = inputQuery.trim();
+            // display weather based on input location
             displayWeather(inputQuery, inputQuery);
          }
-      
       }
-   
-   
    });
 });
 
@@ -143,11 +175,13 @@ const displayWeather = async (location, city) => {
 let map;
 
 const displayMap = (data) => {
+   // Check if map exists, and if it does remove it
    if(map !== undefined) {
       map.off();
       map.remove();
    }
 
+   // Create map based on coordinates
    map = L.map('map', {
       attributionControl: false,
    }).setView([data.weather.coord.lat, data.weather.coord.lon], 5);

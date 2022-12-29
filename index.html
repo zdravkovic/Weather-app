@@ -18,6 +18,7 @@
   </head>
   <body class="font-display max-w-[125rem] 2xl:shadow-2xl mx-auto bg-blue-background scrollbar-thin scrollbar-thumb-rounded-full scrollbar-thumb-[#8d94a8] h-full relative">
     
+    <!-- FIRST SEARCH SCREEN -->
     <div class="first-screen mx-auto max-w-full lg:max-w-[125rem] min-h-screen absolute top-0 left-0 flex flex-col justify-start md:justify-center items-center bg-main-image-gradient bg-cover bg-center z-[100]">
       <div class="form-wrapper w-full h-32">
         <form class="form-first w-full md:w-3/4 lg:w-1/2 mt-8 mb-4 mx-auto text-center">
@@ -33,6 +34,7 @@
           </div>
         </form>
       </div>
+      <!-- FIRST SEARCH CITIES -->
       <div class="firstScreen-cities mt-1 sm:mt-10 md:mt-[3%] gap-5 w-[90%] h-full sm:h-[32rem] xl:h-64 md:w-5/6 grid grid-cols-1 grid-rows-4 sm:grid-cols-2 sm:grid-rows-2 xl:grid-cols-4 xl:grid-rows-1 mb-6 flex-auto sm:flex-initial">
         <div class="fs-belgrade w-full bg-firstScreen-belgrade-gradient hover:bg-firstScreen-belgrade-gradient-hover hover:sm:scale-105 transition-all bg-center bg-cover rounded-lg p-4 flex flex-col justify-center sm:justify-start cursor-pointer">
           <p class="text-xl sm:text-3xl text-light font-semibold">Belgrade</p>
@@ -57,6 +59,7 @@
       </div>
     </div>
 
+    <!-- LEFT SIDE / MAIN TEMPERATURE AND FORECAST -->
     <div class="min-h-screen mx-auto flex flex-col lg:flex-row">
       <div class="lft hidden h-full w-full scrollbar-thin scrollbar-thumb-rounded-full scrollbar-thumb-gray-blue-text lg:h-screen overflow-y-scroll bg-gradient-to-b from-darker-blue to-dark-blue lg:w-2/5 xl:w-1/3 px-2 xl:px-5 2xl:px-8 z-50">
         <form class="form mt-8 lg:mt-12 w-full md:w-[70%] lg:w-full mx-auto text-center relative">
@@ -71,16 +74,23 @@
             </button>
           </div>
         </form>
+
+        <!-- ERROR MESSAGE -->
         <div class="error-message h-[75vh] -mt-20 lg:-mt-16 lg:h-4/5 flex flex-col justify-center items-center md:w-[80%] mx-auto">
           <h2 class="error-message__city text-xl lg:text-2xl font-normal text-gray-text text-center"></h2>
           <h2 class="text-xl lg:text-2xl font-normal text-gray-text text-center">Please search for some other location.</h2>
         </div>
+
+
         <div class="left-info-wrapper">
+
+          <!-- CITY AND DATE -->
           <div class="city-date mt-8 md:mt-12 lg:mt-16">
             <h2 class="city text-2xl sm:text-4xl xl:text-[2.5rem] font-normal text-white text-center">Belgrade</h2>
             <p class="date text-base sm:text-xl xl:text-[1.5rem] font-normal text-gray-text text-center mt-1">17. October, 2022</p>
           </div>
   
+          <!-- MAIN TEMPERATURE AND DESCRIPTION -->
           <div class="flex justify-between sm:justify-around lg:justify-between items-end mt-8 2xl:mt-14 px-8">
             <div class="main-weather flex flex-col">
               <img src="./icons/weather-icons/01d.png" alt="" class="main-temp-icon w-14 md:w-[5.5rem] mb-2 h-auto">
@@ -90,7 +100,8 @@
           </div>
   
           <div class="w-[90%] md:w-[70%] lg:w-[90%] h-[1px] bg-gray-blue-text mx-auto my-4 md:my-8"></div>
-  
+          
+          <!-- FIVE DAY FORECAST -->
           <div class="five-day w-[90%] md:w-[70%] lg:w-[90%] h-auto bg-forecast-blue mx-auto px-4 py-3 lg:p-4 rounded-lg my-8 md:my-10">
             
             <div class="five-day__title flex justify-between pb-3 border-b border-gray-blue-text">
@@ -152,7 +163,7 @@
         </div>
       </div>
       
-      
+      <!-- RIGHT SIDE / WEATHER DETAILS -->
       <div class="rght hidden h-full lg:h-screen overflow-y-auto w-full scrollbar-thin scrollbar-thumb-rounded-full scrollbar-thumb-[#8d94a8] scrollbar-track-light-gray-box bg-light px-6 py-6 md:py-12 sm:px-10 xl:px-16 lg:w-3/5 xl:w-2/3 relative">
 
         <div class="before-search w-full h-full flex flex-col justify-center items-center">
@@ -163,7 +174,10 @@
         <div class="right-info-wrapper">
           <h2 class="text-dark-blue-text text-base md:text-lg 2xl:text-xl font-bold pb-4 md:pb-6 xl:pb-4">Today overview</h2>
           
+          <!-- BOXES GRID -->
           <div class="grid grid-cols-2 md:grid-cols-3 w-full justify-between flex-row gap-4 md:gap-8">
+
+            <!-- WIND -->
             <div class="bg-light-gray-box px-4 py-2 md:px-8 md:py-4 w-full h-auto aspect-square rounded-lg relative">
               <div class="flex items-center pb-2">
                 <img src="./icons/UI-icons/icon-wind.svg" alt="wind icon" class="w-4 h-4">
@@ -179,6 +193,7 @@
               </div>
             </div>
             
+            <!-- PRESSURE -->
             <div class="bg-light-gray-box px-4 py-2 md:px-8 md:py-4 w-full h-auto aspect-square rounded-lg">
               <div class="flex items-center pb-2">
                 <img src="./icons/UI-icons/icon-pressure.svg" alt="pressure icon" class="w-4 h-4">
@@ -193,7 +208,8 @@
                 </div>
               </div>
             </div>
-  
+            
+            <!-- UV INDEX -->
             <div class="bg-light-gray-box px-4 py-2 md:px-8 md:py-4 w-full h-20 sm:h-24 md:h-auto aspect-square rounded-lg flex flex-col">
               <div class="flex items-center">
                 <img src="./icons/UI-icons/icon-uv-index.svg" alt="uv-index icon" class="w-4 h-4">
@@ -210,8 +226,8 @@
               </div>
             </div>
             
+            <!-- TEMP FEELS LIKE -->
             <div class="bg-light-gray-box px-4 py-2 md:px-8 md:py-4 w-full h-20 sm:h-24 md:h-20 xl:h-24 aspect-square rounded-lg flex flex-col">
-              
               <div class="flex items-center">
                 <img src="./icons/UI-icons/icon-feels-like.svg" alt="feels-like icon" class="w-4 h-4">
                 <p class=" text-gray-text text-xs xl:text-sm ml-1 font-medium uppercase">feels like</p>
@@ -219,6 +235,7 @@
               <h3 class="weather-feels-like text-dark-blue-text text-2xl xl:text-3xl font-semibold my-auto">12&deg;C</h3>
             </div>
             
+            <!-- HUMIDITY -->
             <div class="bg-light-gray-box px-4 py-2 md:px-8 md:py-4 w-full h-20 sm:h-24 md:h-20 xl:h-24 aspect-square rounded-lg flex flex-col">
               <div class="flex items-center">
                 <img src="./icons/UI-icons/icon-humidity.svg" alt="humidity icon" class="w-4 h-4">
@@ -226,7 +243,8 @@
               </div>
               <h3 class="weather-humidity text-dark-blue-text text-2xl xl:text-3xl  font-semibold my-auto">65%</h3>
             </div>
-  
+            
+            <!-- SUNSET -->
             <div class="bg-light-gray-box px-4 py-2 md:px-8 md:py-4 w-full h-20 sm:h-24 md:h-20 xl:h-24 aspect-square rounded-lg flex flex-col">
               <div class="flex items-center">
                 <img src="./icons/UI-icons/icon-sunrise.svg" alt="sunrise icon" class="w-4 h-4">
@@ -237,7 +255,7 @@
   
           </div>
   
-          
+          <!-- AIR QUALITY -->
           <div class="flex flex-col xl:flex-row h-[32rem] sm:h-[36rem] xl:h-72 mt-4 md:mt-8 space-y-4 md:space-y-8 space-x-0 xl:space-y-0 xl:space-x-8">
             <div class="w-full h-auto xl:h-full rounded-lg px-4 pt-2 pb-4 md:px-8 md:pt-4 md:pb-4 bg-light-gray-box">
               <p class="text-gray-text text-xs xl:text-sm font-medium uppercase">air quality index</p>
@@ -262,6 +280,8 @@
                 </div>
               </div>
             </div>
+
+            <!-- PRECIPITATION MAP -->
             <div class="w-full h-full rounded-lg py-2 md:py-4 bg-light-gray-box">
               <div class="flex items-center px-4 md:px-8 pb-2">
                 <img src="./icons/UI-icons/icon-precipitation.svg" alt="precipitation icon" class="w-4 h-4">
@@ -269,7 +289,6 @@
               </div>
               <div class="precipitation-map w-[97%] md:w-[96%] lg:w-[95%] h-[90%] rounded-lg overflow-hidden bg-gray-text mx-auto">
                 <div id="map" class="z-[90]">
-                  
                 </div>
               </div>
             </div>
@@ -277,6 +296,7 @@
         </div>
       </div>
     </div>
+
     <script type="module" src="./main.js"></script>
   </body>
 </html>
