@@ -34,8 +34,8 @@ const displayContent = async (res) => {
 
 	// Save UV index data as variable
 	const uvIndex = await uvSearch(res.geoData);
-
-	if (uvIndex) {
+	
+	if (uvIndex !== 'undefined') {
 		// Round UV index number to lower digit
 		const uvIndexFloor = Math.floor(uvIndex);
 		// Change DOM elements styles and text content based on UV index number
