@@ -26,7 +26,7 @@
     <div class="first-screen mx-auto max-w-full lg:max-w-[125rem] min-h-screen absolute top-0 left-0 flex flex-col justify-start md:justify-center items-center bg-main-image-gradient bg-cover bg-center z-[100]">
       <div class="form-wrapper w-full h-fit flex flex-col justify-center items-center pt-5 xl:pt-0 xl:gap-5">
         <img src="./img/weather-detailer__logo-small.png" alt="" class="w-28 sm:w-36 md:w-48 xl:w-52 2xl:w-60 h-auto">
-        <form class="form-first w-full md:w-3/4 lg:w-1/2 mt-6 mb-4 mx-auto text-center">
+        <form class="form-first w-full md:w-3/4 lg:w-1/2 mt-6 mb-4 mx-auto text-center relative">
           <div class="first-div mx-auto px-8 py-3 xl:py-4 rounded-full w-[90%] bg-[#DDE3F1] text-left flex items-center">
             <input class="form-input-first bg-transparent w-full text-darker-blue font-bold placeholder:font-normal text-base lg:text-lg border-none focus:outline-none"
                 type="text"
@@ -36,6 +36,14 @@
                 <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
               </svg>
             </button>
+          </div>
+          <div class="first-autocomplete w-[90%] z-50 top-16 left-1/2 -translate-x-1/2 bg-[#DDE3F1] absolute rounded-3xl overflow-hidden">
+            <ul class="autocomplete-parent-first flex flex-col items-start cursor-pointer">
+              <!-- <li class="hover:bg-gray-text py-3 cursor-pointer w-full text-left px-8">city-1</li>
+              <li class="hover:bg-gray-text py-3 cursor-pointer w-full text-left px-8">city-2</li>
+              <li class="hover:bg-gray-text py-3 cursor-pointer w-full text-left px-8">city-3</li>
+              <li class="hover:bg-gray-text py-3 cursor-pointer w-full text-left px-8">city-4</li> -->
+            </ul>
           </div>
         </form>
       </div>
@@ -77,6 +85,14 @@
                 <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
               </svg>
             </button>
+          </div>
+          <div class="autocomplete w-[90%] z-50 top-16 left-1/2 -translate-x-1/2 bg-dark-light-blue absolute rounded-3xl overflow-hidden">
+            <ul class="autocomplete-parent flex flex-col items-start cursor-pointer">
+              <!-- <li class="hover:bg-gray-blue-text py-3 cursor-pointer w-full text-left px-8 text-gray-text">city-1</li>
+              <li class="hover:bg-gray-blue-text py-3 cursor-pointer w-full text-left px-8 text-gray-text">city-2</li>
+              <li class="hover:bg-gray-blue-text py-3 cursor-pointer w-full text-left px-8 text-gray-text">city-3</li>
+              <li class="hover:bg-gray-blue-text py-3 cursor-pointer w-full text-left px-8 text-gray-text">city-4</li> -->
+            </ul>
           </div>
         </form>
 

@@ -2,6 +2,7 @@ import searchResults from './components/searchHandler';
 import displayContent from './components/UI/displayContent';
 import { dateFormat, cityNameFormat } from './components/dateAndNameFormat';
 import { variables } from './components/variables';
+import autocomplete from './components/UI/autocomplete';
 
 const init = () => {
    // reset UI
@@ -19,6 +20,20 @@ const firstInit = () => {
    variables.inputFieldFirst.value = '';
 }
 
+const debounce_leading = (func, timeout = 300) => {
+   let timer;
+   return (...args) => {
+     /* if (!timer) {
+       func.apply(this, args);
+     } */
+     clearTimeout(timer);
+     timer = setTimeout(() => {
+       func.apply(this, args);
+       timer = undefined;
+     }, timeout);
+   };
+ }
+
 // Handle 'first-search-screen' citites fields
 const firstScreen = async () => {
    // Call async functions and store their values to a variables
@@ -27,6 +42,7 @@ const firstScreen = async () => {
    const searchParis = await searchResults('paris');
    const searchMadrid = await searchResults('madrid');
 
+   
    // Change temperature and weather description for each city
    variables.fsBelgradeDescription.textContent = searchBelgrade.weather.weather[0].main;
    variables.fsBelgradeTemp.textContent = `${Math.ceil(searchBelgrade.weather.main.temp)}\xB0C`;
@@ -36,9 +52,10 @@ const firstScreen = async () => {
    variables.fsParisTemp.textContent = `${Math.ceil(searchParis.weather.main.temp)}\xB0C`;
    variables.fsMadridDescription.textContent = searchMadrid.weather.weather[0].main;
    variables.fsMadridTemp.textContent = `${Math.ceil(searchMadrid.weather.main.temp)}\xB0C`;   
-
+   
    
    let clickedCity;
+   
    // listen to a click event on every photo
    variables.fsBelgrade.addEventListener('click', () => {
       // save clicked target to
@@ -130,6 +147,56 @@ const displayWeather = async (location, city) => {
 
 // Add event listener to forms
 [variables.inputFormFirst, variables.inputForm].forEach((el) => {
+   el.addEventListener('keyup', debounce_leading(async() => {
+      console.log(variables.firstScreen.style.display !== 'none');
+      if (variables.firstScreen.style.display != 'none') {
+         if (el[0].value.length > 0) {
+
+            variables.autocompleteParentFirst.innerHTML = '';
+            const res = await autocomplete(el[0].value);
+            res.features.map(el => {
+               const listEl = document.createElement('li');
+               listEl.classList.add('auto-city','hover:bg-gray-text', 'py-3', 'cursor-pointer', 'w-full', 'text-left', 'px-8');
+               listEl.textContent = `${el.properties.address_line1}, ${el.properties.country}`;
+               variables.autocompleteParentFirst.appendChild(listEl);
+            });
+            
+         }
+         document.querySelectorAll('.auto-city').forEach(city => {
+            city.addEventListener('click', clicked => {
+               let autocompleteCity = clicked.target.textContent.split(',')[0].replace(/[0-9]/g, '').trim();
+               el[0].value = autocompleteCity;
+               variables.autocompleteParentFirst.innerHTML = '';
+               displayWeather(autocompleteCity, autocompleteCity);
+            });
+         });
+      } else {
+         console.log('it is false');
+         if (el[0].value.length > 0) {
+
+            variables.autocompleteParent.innerHTML = '';
+            const res = await autocomplete(el[0].value);
+            console.log(res);
+
+            res.features.map(el2 => {
+               const listEl = document.createElement('li');
+               listEl.classList.add('auto-city', 'bg-light-gray-box', 'hover:bg-gray-text', 'py-3', 'cursor-pointer', 'w-full', 'text-left', 'px-8');
+               listEl.textContent = `${el2.properties.address_line1}, ${el2.properties.country}`;
+               variables.autocompleteParent.appendChild(listEl);
+            });
+            
+         }
+         document.querySelectorAll('.auto-city').forEach(city => {
+            city.addEventListener('click', clicked => {
+               let autocompleteCity = clicked.target.textContent.split(',')[0].replace(/[0-9]/g, '').trim();
+               el[1].value = autocompleteCity;
+               variables.autocompleteParent.innerHTML = '';
+               displayWeather(autocompleteCity, autocompleteCity);
+            });
+         });
+      }
+   }));
+
    // Remove error message on keypress
    el[0].addEventListener('keypress', input => {
       variables.inputFormFirst.classList.remove('form-first-error');
@@ -142,6 +209,12 @@ const displayWeather = async (location, city) => {
    // Listen to submit action on both forms
    el.addEventListener('submit', form => {
       form.preventDefault();
+      if (variables.firstScreen.style.display !== 'none') {
+         variables.autocompleteParentFirst.innerHTML = '';
+      } else {
+         variables.autocompleteParent.innerHTML = '';
+      }
+
       let inputQuery;
       // check if it's first search
       if (variables.firstScreen.style.display != 'none') {
@@ -170,6 +243,8 @@ const displayWeather = async (location, city) => {
       }
    });
 });
+
+
 
 
 let map;

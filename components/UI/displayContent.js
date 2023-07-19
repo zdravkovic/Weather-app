@@ -35,7 +35,7 @@ const displayContent = async (res) => {
 	// Save UV index data as variable
 	const uvIndex = await uvSearch(res.geoData);
 	
-	if (uvIndex !== 'undefined') {
+	if (uvIndex !== 'undefined' && uvIndex) {
 		// Round UV index number to lower digit
 		const uvIndexFloor = Math.floor(uvIndex);
 		// Change DOM elements styles and text content based on UV index number
@@ -47,6 +47,7 @@ const displayContent = async (res) => {
 	// Save Air Polution data as variable
 	const airPolution = await airPolutionSearch(res.geoData);
 	// Check if data is present and display it in DOM
+	if (airPolution !== 'undefined' && airPolution)
 	airPolution && displayAirColors(airPolution);
 }
 

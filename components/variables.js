@@ -56,6 +56,8 @@ export const variables = {
    beforeSearch: document.querySelector('.before-search'),
    errorMessage: document.querySelector('.error-message'),
    errorMessageCity: document.querySelector('.error-message__city'),
-   firstScreenError: document.querySelector('.first-screen-error')
+   firstScreenError: document.querySelector('.first-screen-error'),
+   autocompleteParentFirst: document.querySelector('.autocomplete-parent-first'),
+   autocompleteParent: document.querySelector('.autocomplete-parent'),
 }
 

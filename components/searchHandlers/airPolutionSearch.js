@@ -13,7 +13,7 @@ const airPolutionSearch = async (data) => {
       }
       return airPolutionData;
    } catch(error) {
-      console.error(error);
+      throw new Error('Request limit reached. Try again later.');
    }
 }
 
